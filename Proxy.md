@@ -5,7 +5,7 @@ package proxy;
 interface DatabaseExecuter {
   public void executeDatabase(String query) throws Exception;
 }
-
+'''
 class DatabaseExecuterImpl implements DatabaseExecuter {
 
   @Override
