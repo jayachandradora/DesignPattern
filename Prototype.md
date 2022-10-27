@@ -1,5 +1,5 @@
 # DesignPattern
-Design Pattern
+`RGB Prototype comes under a creational design pattern that makes use of cloning objects if object creation complex and time-consuming.`
 
 ### Student.java
 ```
