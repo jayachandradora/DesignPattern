@@ -49,14 +49,11 @@ public class ACContext implements State {
 
 ## 5.ACRemoteTest.java
 
-/** <br>
- * Client Program which makes use of<br>
- * State design pattern<br>
- */<br>
+/** Client Program which makes use of State design pattern<br> **/ <br>
 public class ACRemoteTest {<br>
  
 	public static void main(String[] args) {
-		
+		 
 		//Create Context Object
 		ACContext acContext = new ACContext();
 		
