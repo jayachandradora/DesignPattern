@@ -1,7 +1,7 @@
 # DesignPattern
 Strategy Design Pattern
 
-## 1.PaymentMethod.java
+## 1. PaymentMethod.java
 ```ruby
 package payment;
 /**
@@ -12,7 +12,7 @@ public interface PaymentMethod {
 	public abstract void pay(int amount);
 }
 ```
-## 2.CreditcardPaymentMethod.java
+## 2. CreditcardPaymentMethod.java
 ```ruby
 package payment;
  
@@ -57,7 +57,7 @@ public class CreditcardPaymentMethod implements PaymentMethod {
 	}
 }
 ```
-## 3.PaypalPaymentMethod.java
+## 3. PaypalPaymentMethod.java
 ```ruby
 package payment;
  
@@ -89,7 +89,7 @@ public class PaypalPaymentMethod implements PaymentMethod {
 	}
 }
 ```
-## 4.Product.java
+## 4. Product.java
 ```ruby
 package payment;
 /**
@@ -118,7 +118,7 @@ public class Product {
 	}
 }
 ```
-## 5.Shoppingcart.java
+## 5. Shoppingcart.java
 ```ruby
 package payment;
 import java.util.ArrayList;
@@ -158,7 +158,7 @@ public class Shoppingcart {
 	}
 }
 ```
-## 6.ClientTest.java
+## 6. ClientTest.java
 ```ruby
 package payment;
  
