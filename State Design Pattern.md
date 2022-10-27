@@ -2,34 +2,36 @@
 DesignPattern
 
 ## 1. State.java
-
-public interface State {<br>
-	public abstract void doAction();<br>
-}<br>
+```
+public interface State {
+	public abstract void doAction();
+}
+```
 
 ## 2. ACStartState.java
-
-/** An Implementation to perform START/ON Action */<br>
-public class ACStartState implements State {<br>
-	@Override<br>
+```
+/** An Implementation to perform START/ON Action */
+public class ACStartState implements State {
+	@Override
 	public void doAction() {<br>
-		System.out.println("AC is turned ON");<br>
-	}<br>
-}<br>
-
+		System.out.println("AC is turned ON");
+	}
+}
+```
 ## 3. ACStopState.java
-
-/** An Implementation to perform STOP/OFF Action */<br>
-public class ACStopState implements State {<br>
-	@Override<br>
-	public void doAction() {<br>
-		System.out.println("AC is turned OFF");<br>
-	}<br>
-}<br>
-
+```
+/** An Implementation to perform STOP/OFF Action */
+public class ACStopState implements State {
+	@Override
+	public void doAction() {
+		System.out.println("AC is turned OFF");
+	}
+}
+```
 ## 4. ACContext.java
 
-/** This Contaxt class performed Action based on state  */ <br>
+```
+/** This Contaxt class performed Action based on state  */ 
 public class ACContext implements State {
  
 	private State state;
@@ -46,11 +48,11 @@ public class ACContext implements State {
 		state.doAction();
 	}
 }
-
+```
 ## 5.ACRemoteTest.java
-
-/** Client Program which makes use of State design pattern<br> **/ <br>
-public class ACRemoteTest {<br>
+```
+/** Client Program which makes use of State design pattern<br> **/ 
+public class ACRemoteTest {
  
 	public static void main(String[] args) {
 		 
@@ -74,5 +76,6 @@ public class ACRemoteTest {<br>
 		
 		//Now Perform Action 
 		acContext.doAction();
-	}<br>
+	}
 }
+```
