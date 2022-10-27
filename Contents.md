@@ -1,6 +1,7 @@
 # DesignPattern
 DesignPattern
-##Creational design patterns
+
+## Creational design patterns
 These design patterns are all about class instantiation. This pattern can be further divided into class-creation patterns and object-creational patterns. <br>
 While class-creation patterns use inheritance effectively in the instantiation process, object-creation patterns use delegation effectively to get the job done.<br>
 
@@ -16,3 +17,24 @@ Avoid expensive acquisition and release of resources by recycling objects that a
 A fully initialized instance to be copied or cloned
 #### Singleton
 A class of which only a single instance can exist
+
+## Structural design patterns
+These design patterns are all about Class and Object composition. Structural class-creation patterns use inheritance to compose interfaces.  <br>
+Structural object-patterns define ways to compose objects to obtain new functionality. <br>
+
+#### Adapter
+Match interfaces of different classes
+#### Bridge
+Separates an object’s interface from its implementation
+#### Composite
+A tree structure of simple and composite objects
+#### Decorator
+Add responsibilities to objects dynamically
+#### Facade
+A single class that represents an entire subsystem
+#### Flyweight
+A fine-grained instance used for efficient sharing
+#### Private Class Data
+Restricts accessor/mutator access
+#### Proxy
+An object representing another object
