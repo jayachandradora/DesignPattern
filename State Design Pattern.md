@@ -2,14 +2,14 @@
 DesignPattern
 
 ## 1. State.java
-```
+```ruby
 public interface State {
 	public abstract void doAction();
 }
 ```
 
 ## 2. ACStartState.java
-```
+```ruby
 /** An Implementation to perform START/ON Action */
 public class ACStartState implements State {
 	@Override
@@ -19,7 +19,7 @@ public class ACStartState implements State {
 }
 ```
 ## 3. ACStopState.java
-```
+```ruby
 /** An Implementation to perform STOP/OFF Action */
 public class ACStopState implements State {
 	@Override
@@ -30,7 +30,7 @@ public class ACStopState implements State {
 ```
 ## 4. ACContext.java
 
-```
+```ruby
 /** This Contaxt class performed Action based on state  */ 
 public class ACContext implements State {
  
@@ -50,7 +50,7 @@ public class ACContext implements State {
 }
 ```
 ## 5.ACRemoteTest.java
-```
+```ruby
 /** Client Program which makes use of State design pattern<br> **/ 
 public class ACRemoteTest {
  
