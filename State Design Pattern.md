@@ -29,7 +29,7 @@ public class ACStopState implements State {<br>
 
 ## 4. ACContext.java
 
-/** This Contaxt class performed Action based on state  */
+/** This Contaxt class performed Action based on state  */ <br>
 public class ACContext implements State {
  
 	private State state;
