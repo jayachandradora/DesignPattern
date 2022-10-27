@@ -29,23 +29,23 @@ public class ACStopState implements State {<br>
 
 ## 4. ACContext.java
 
-/** This Contaxt class performed Action based on state  */<br>
-public class ACContext implements State {<br>
+/** This Contaxt class performed Action based on state  */
+public class ACContext implements State {
  
-	private State state;<br>
-	public void setState(State state) {<br>
-		this.state = state;<br>
-	}<br>
+	private State state;
+	public void setState(State state) {
+		this.state = state;
+	}
 	
-	public State getState() {<br>
-		return state;<br>
-	}<br>
+	public State getState() {
+		return state;
+	}
 	
 	@Override<br>
-	public void doAction() {<br>
-		state.doAction();<br>
-	}<br>
-}<br>
+	public void doAction() {
+		state.doAction();
+	}
+}
 
 ## 5.ACRemoteTest.java
 
@@ -55,27 +55,27 @@ public class ACContext implements State {<br>
  */<br>
 public class ACRemoteTest {<br>
  
-	public static void main(String[] args) {<br>
+	public static void main(String[] args) {
 		
-		//Create Context Object<br>
-		ACContext acContext = new ACContext();<br><br>
+		//Create Context Object
+		ACContext acContext = new ACContext();
 		
-		//Create State Object<br>
-		State AcStartState = new ACStartState();<br><br>
+		//Create State Object
+		State AcStartState = new ACStartState();
 		
-		//Now setting state to start AC<br>
-		acContext.setState(AcStartState);<br><br>
+		//Now setting state to start AC
+		acContext.setState(AcStartState);
 		
-		//Now Perform Action<br>
-		acContext.doAction();<br><br>
+		//Now Perform Action
+		acContext.doAction();
 		
-		System.out.println("-------------------------------");<br>
+		System.out.println("-------------------------------");
 		
-		//Now setting State to stop AC<br>
-		State AcStopState = new ACStopState();<br>
-		acContext.setState(AcStopState); <br>
+		//Now setting State to stop AC
+		State AcStopState = new ACStopState();
+		acContext.setState(AcStopState); 
 		
-		//Now Perform Action <br>
-		acContext.doAction();<br>
+		//Now Perform Action 
+		acContext.doAction();
 	}
 }
