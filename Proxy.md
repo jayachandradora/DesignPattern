@@ -6,6 +6,8 @@ interface DatabaseExecuter {
   public void executeDatabase(String query) throws Exception;
 }
 ```
+
+```
 class DatabaseExecuterImpl implements DatabaseExecuter {
 
   @Override
@@ -14,7 +16,9 @@ class DatabaseExecuterImpl implements DatabaseExecuter {
   }
   
 }
+```
 
+```
 class DatabaseExecuterProxy implements DatabaseExecuter {
   boolean ifAdmin;
   DatabaseExecuterImpl dbExecuter;
@@ -25,7 +29,9 @@ class DatabaseExecuterProxy implements DatabaseExecuter {
     }
     dbExecuter = new DatabaseExecuterImpl();
   }
+```
 
+```
   @Override
   public void executeDatabase(String query) throws Exception {
     if(ifAdmin) {
@@ -39,7 +45,9 @@ class DatabaseExecuterProxy implements DatabaseExecuter {
     }
   }
 }
+```
 
+```
 public class ProxyPatternExample {
 
   public static void main(String[] args) throws Exception {
@@ -56,4 +64,4 @@ public class ProxyPatternExample {
   }
 
 }
-'''
+```
