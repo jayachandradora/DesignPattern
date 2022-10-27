@@ -1,13 +1,13 @@
 # Design Pattern
 Proxy Design Pattern
-```
+```ruby
 package proxy;
 interface DatabaseExecuter {
   public void executeDatabase(String query) throws Exception;
 }
 ```
 
-```
+```ruby
 class DatabaseExecuterImpl implements DatabaseExecuter {
 
   @Override
@@ -18,7 +18,7 @@ class DatabaseExecuterImpl implements DatabaseExecuter {
 }
 ```
 
-```
+```ruby
 class DatabaseExecuterProxy implements DatabaseExecuter {
   boolean ifAdmin;
   DatabaseExecuterImpl dbExecuter;
@@ -29,9 +29,7 @@ class DatabaseExecuterProxy implements DatabaseExecuter {
     }
     dbExecuter = new DatabaseExecuterImpl();
   }
-```
 
-```
   @Override
   public void executeDatabase(String query) throws Exception {
     if(ifAdmin) {
@@ -47,7 +45,7 @@ class DatabaseExecuterProxy implements DatabaseExecuter {
 }
 ```
 
-```
+```ruby
 public class ProxyPatternExample {
 
   public static void main(String[] args) throws Exception {
