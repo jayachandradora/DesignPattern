@@ -33,6 +33,7 @@ public class Student {
 ```
 ### StudentDAO.java creates Cloned Object that makes use of  Prototype Pattern:
 ```
+package prototype;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -82,10 +83,8 @@ public class StudentDAO implements Cloneable{
 ```
 ### PrototypePatternTest.java
 ```
+package prototype;
 import java.util.List;
- 
-import com.kkjavatutorials.prototype.Student;
-import com.kkjavatutorials.prototype.StudentDAO;
 /**
  *Client Program which uses cloned object
  */
