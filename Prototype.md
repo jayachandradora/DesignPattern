@@ -32,7 +32,7 @@ public class Student {
 }
 ```
 ### StudentDAO.java creates Cloned Object that makes use of  Prototype Pattern:
-```
+```ruby
 package prototype;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +82,7 @@ public class StudentDAO implements Cloneable{
 }
 ```
 ### PrototypePatternTest.java
-```
+```ruby
 package prototype;
 import java.util.List;
 /**
