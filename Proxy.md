@@ -1,5 +1,5 @@
-# DesignPattern
-DesignPattern
+# Design Pattern
+Proxy Design Pattern
 ```
 package proxy;
 interface DatabaseExecuter {
