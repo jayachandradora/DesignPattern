@@ -1,5 +1,5 @@
-# DesignPattern
-DesignPattern
+# State Design Pattern
+The main idea of State pattern is to allow the object for changing its behavior without changing its class. Also, by implementing it, the code should remain cleaner without many if/else statements.
 
 ## 1. State.java
 ```ruby
@@ -13,7 +13,7 @@ public interface State {
 /** An Implementation to perform START/ON Action */
 public class ACStartState implements State {
 	@Override
-	public void doAction() {<br>
+	public void doAction() {
 		System.out.println("AC is turned ON");
 	}
 }
