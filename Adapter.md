@@ -1,6 +1,6 @@
 # Design Pattern
 
-## Defination 
+## Definition 
 
 Adapter design pattern is one of the structural design patterns and is used so that two unrelated/incompatible interfaces can work together smoothly.
 The object, that joins these incompatible interfaces, is called an Adapter. It is also known as Wrapper design pattern.
