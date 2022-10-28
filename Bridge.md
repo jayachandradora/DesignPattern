@@ -144,3 +144,5 @@ public class PaymentProcessor {
     }  
 }    
 ```
+
+#### JD Please edit this blog - https://www.c-sharpcorner.com/article/bridge-design-pattern-with-java/
