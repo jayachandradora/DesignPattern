@@ -6,17 +6,17 @@ These design patterns are all about class instantiation. This pattern can be fur
 While class-creation patterns use inheritance effectively in the instantiation process, object-creation patterns use delegation effectively to get the job done.<br>
 
 #### Abstract Factory
-Creates an instance of several families of classes
+- Creates an instance of several families of classes
 #### Builder
 Separates object construction from its representation
 #### Factory Method
 Creates an instance of several derived classes
 #### Object Pool
-Avoid expensive acquisition and release of resources by recycling objects that are no longer in use
+- Avoid expensive acquisition and release of resources by recycling objects that are no longer in use
 #### Prototype
-A fully initialized instance to be copied or cloned
+- A fully initialized instance to be copied or cloned
 #### Singleton
-A class of which only a single instance can exist
+- A class of which only a single instance can exist
 
 ## Structural design patterns
 These design patterns are all about Class and Object composition. Structural class-creation patterns use inheritance to compose interfaces.  <br>
