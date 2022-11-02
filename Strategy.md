@@ -204,3 +204,24 @@ public class ClientTest {
 	}
 }
 ```
+
+### Other Example
+
+Strategy.java
+![image](https://user-images.githubusercontent.com/115500959/199534071-052ff626-113b-4f35-bc4e-994d299709ef.png)
+
+OperationAdd.java
+![image](https://user-images.githubusercontent.com/115500959/199534150-76ae8d96-e92a-43f5-af5f-82f2cdd68183.png)
+
+OperationSubtract.java
+![image](https://user-images.githubusercontent.com/115500959/199534202-cbc31ac0-1833-47c5-9ba8-9a7966552564.png)
+
+OperationMultiply.java
+![image](https://user-images.githubusercontent.com/115500959/199534273-8939a7da-6a8c-4280-914c-8e76bd22a382.png)
+
+Context.java
+![image](https://user-images.githubusercontent.com/115500959/199534401-5979a2ce-c266-46c5-85c5-0988c81d1509.png)
+
+StrategyPatternDemo.java
+![image](https://user-images.githubusercontent.com/115500959/199534430-c3941510-2116-438b-90fc-a6252890e47c.png)
+
