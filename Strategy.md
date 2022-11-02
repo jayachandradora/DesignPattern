@@ -217,7 +217,7 @@ OperationSubtract.java
 ![image](https://user-images.githubusercontent.com/115500959/199534202-cbc31ac0-1833-47c5-9ba8-9a7966552564.png)
 
 OperationMultiply.java
-![image](https://user-images.githubusercontent.com/115500959/199534273-8939a7da-6a8c-4280-914c-8e76bd22a382.png)
+![image](https://user-images.githubusercontent.com/115500959/199534865-abd9cfa3-928b-4512-8064-caf74495f24f.png)
 
 Context.java
 ![image](https://user-images.githubusercontent.com/115500959/199534401-5979a2ce-c266-46c5-85c5-0988c81d1509.png)
