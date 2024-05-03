@@ -6,8 +6,6 @@
 interface State {
     void doAction(Context context);
 }
-
-// Concrete states
 class StartState implements State {
     public void doAction(Context context) {
         System.out.println("Player is in start state");
@@ -60,31 +58,24 @@ public class Main {
 ## Strategy Pattern:
 
 ```ruby
-// Strategy interface
 interface Strategy {
     int doOperation(int num1, int num2);
 }
-
-// Concrete strategies
 class OperationAdd implements Strategy {
     public int doOperation(int num1, int num2) {
         return num1 + num2;
     }
 }
-
 class OperationSubtract implements Strategy {
     public int doOperation(int num1, int num2) {
         return num1 - num2;
     }
 }
-
 class OperationMultiply implements Strategy {
     public int doOperation(int num1, int num2) {
         return num1 * num2;
     }
 }
-
-// Context class
 class Context {
     private Strategy strategy;
 
@@ -96,8 +87,6 @@ class Context {
         return strategy.doOperation(num1, num2);
     }
 }
-
-// Client code
 public class Main {
     public static void main(String[] args) {
         Context context = new Context(new OperationAdd());
