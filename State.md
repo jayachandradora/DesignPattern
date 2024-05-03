@@ -121,8 +121,100 @@ class NoSelectionState implements VendingMachineState {
     }
 }
 
-// Other state classes implemented similarly...
+// State representing when an item is selected
+class HasSelectionState implements VendingMachineState {
+    private VendingMachine vendingMachine;
 
+    public HasSelectionState(VendingMachine vendingMachine) {
+        this.vendingMachine = vendingMachine;
+    }
+
+    @Override
+    public void selectItem(String item) {
+        System.out.println("Item " + item + " is already selected");
+    }
+
+    @Override
+    public void insertCoin(int amount) {
+        vendingMachine.setAmountInserted(amount);
+        vendingMachine.changeState(new InsertCoinState(vendingMachine));
+        System.out.println(amount + " cents inserted");
+    }
+
+    @Override
+    public void dispenseItem() {
+        System.out.println("Please insert coins first");
+    }
+}
+
+// State representing when coins are inserted
+class InsertCoinState implements VendingMachineState {
+    private VendingMachine vendingMachine;
+
+    public InsertCoinState(VendingMachine vendingMachine) {
+        this.vendingMachine = vendingMachine;
+    }
+
+    @Override
+    public void selectItem(String item) {
+        System.out.println("Please finish inserting coins first");
+    }
+
+    @Override
+    public void insertCoin(int amount) {
+        int totalAmount = vendingMachine.getAmountInserted() + amount;
+        vendingMachine.setAmountInserted(totalAmount);
+        System.out.println(amount + " cents inserted. Total: " + totalAmount);
+    }
+
+    @Override
+    public void dispenseItem() {
+        int itemCost = vendingMachine.getItemCost();
+        int amountInserted = vendingMachine.getAmountInserted();
+        if (amountInserted >= itemCost) {
+            vendingMachine.changeState(new SoldState(vendingMachine));
+            vendingMachine.dispenseItem();
+        } else {
+            System.out.println("Please insert more coins to cover the cost");
+        }
+    }
+}
+
+// State representing when an item is dispensed
+class SoldState implements VendingMachineState {
+    private VendingMachine vendingMachine;
+
+    public SoldState(VendingMachine vendingMachine) {
+        this.vendingMachine = vendingMachine;
+    }
+
+    @Override
+    public void selectItem(String item) {
+        System.out.println("Please wait, dispensing the item");
+    }
+
+    @Override
+    public void insertCoin(int amount) {
+        System.out.println("Already dispensing the item");
+    }
+
+    @Override
+    public void dispenseItem() {
+        int amountInserted = vendingMachine.getAmountInserted();
+        int itemCost = vendingMachine.getItemCost();
+        if (amountInserted >= itemCost) {
+            System.out.println("Item dispensed. Enjoy!");
+            int change = amountInserted - itemCost;
+            if (change > 0) {
+                System.out.println("Change returned: " + change + " cents");
+            }
+            vendingMachine.setAmountInserted(0);
+            vendingMachine.changeState(new NoSelectionState(vendingMachine));
+        } else {
+            System.out.println("Insufficient amount inserted to dispense the item");
+        }
+    }
+}
 // Context class (Vending Machine)
 class VendingMachine {
     private VendingMachineState state;
