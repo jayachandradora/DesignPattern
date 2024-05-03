@@ -80,7 +80,7 @@ public class ACRemoteTest {
 }
 ```
 
-# Scenario
+# Best Real World Use Case
 
 Consider a simple vending machine that can be in different states: NoSelectionState, HasSelectionState, InsertCoinState, and SoldState. The behavior of the vending machine changes depending on its current state.
 
