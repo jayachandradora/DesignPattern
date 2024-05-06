@@ -26,7 +26,100 @@ the added functionalities. The customer can add toppings (functionalities) as pe
 6. Create a concrete decorator class, PatternDecorator which inherits the base decorator class, ColorDecorator. Define a new method addPattern(), 
 to add functionalities to the wrapped object.
 
-## Example
+## Example 1
+
+```java
+// Component interface
+interface Pizza {
+    String getDescription();
+    double getCost();
+}
+
+// Concrete component
+class PlainPizza implements Pizza {
+    @Override
+    public String getDescription() {
+        return "Plain Pizza";
+    }
+
+    @Override
+    public double getCost() {
+        return 5.0;
+    }
+}
+
+// Decorator abstract class
+abstract class ToppingDecorator implements Pizza {
+    protected Pizza pizza;
+
+    public ToppingDecorator(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
+    @Override
+    public String getDescription() {
+        return pizza.getDescription();
+    }
+
+    @Override
+    public double getCost() {
+        return pizza.getCost();
+    }
+}
+
+// Concrete decorator
+class Cheese extends ToppingDecorator {
+    public Cheese(Pizza pizza) {
+        super(pizza);
+    }
+
+    @Override
+    public String getDescription() {
+        return pizza.getDescription() + ", Cheese";
+    }
+
+    @Override
+    public double getCost() {
+        return pizza.getCost() + 1.0;
+    }
+}
+
+// Concrete decorator
+class Pepperoni extends ToppingDecorator {
+    public Pepperoni(Pizza pizza) {
+        super(pizza);
+    }
+
+    @Override
+    public String getDescription() {
+        return pizza.getDescription() + ", Pepperoni";
+    }
+
+    @Override
+    public double getCost() {
+        return pizza.getCost() + 1.5;
+    }
+}
+
+// Client code
+public class Main {
+    public static void main(String[] args) {
+        // Create a plain pizza
+        Pizza pizza = new PlainPizza();
+
+        // Add toppings dynamically
+        pizza = new Cheese(pizza);
+        pizza = new Pepperoni(pizza);
+
+        // Output description and cost
+        System.out.println("Description: " + pizza.getDescription());
+        System.out.println("Cost: $" + pizza.getCost());
+    }
+}
+
+```
+
+## Example 2
 
 ```ruby
 interface Color{
