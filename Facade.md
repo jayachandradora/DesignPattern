@@ -26,7 +26,7 @@ The Facade design pattern is a structural pattern that provides a simplified int
 3. **Legacy System Integration:**
    - When integrating with legacy systems with complex interfaces, use a facade to provide a modern, simplified interface. This allows clients to interact with the legacy system without dealing with its intricacies.
 
-## Example
+## Example - 1
 
 Consider a banking system that consists of multiple subsystems such as account management, transaction processing, and customer service. We can use the Facade pattern to create a `BankingFacade` that provides a simplified interface for common banking operations:
 
@@ -90,7 +90,7 @@ public class Main {
 }
 ```
 
-### Example:
+### Example - 2
 
 Consider a multimedia player application that consists of multiple subsystems such as audio player, video player, and playlist manager. We can use the Facade pattern to create a MultimediaPlayerFacade that provides a unified interface to perform common operations such as play, pause, stop, and skip tracks:
 
