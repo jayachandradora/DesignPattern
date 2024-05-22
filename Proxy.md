@@ -5,7 +5,9 @@ The Proxy Design Pattern provides a surrogate or placeholder for another object 
 ###    Components:
 
 **Proxy:** Acts as the intermediary, implementing the same interface as the subject.
+
 **Subject:** The actual object being accessed.
+
 **Client:** Uses the proxy to interact with the subject.
 
 ### Use Cases:
