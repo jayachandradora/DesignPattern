@@ -23,7 +23,116 @@ The Observer design pattern is a behavioral pattern that defines a one-to-many d
 3. **Model-View-Controller (MVC) Architecture:**
    - Apply the Observer pattern to implement the Model-View-Controller architecture. The model acts as the subject, and views register as observers to update their presentation when the model's state changes.
 
-## Example
+## Example - 2
+
+We'll extend the previous product availability example to send notifications to a list of registered users when the product availability changes. We'll have a User class representing a user who can be notified
+
+```Java
+
+import java.util.ArrayList;
+import java.util.List;
+
+// Observer interface
+interface Observer {
+    void update(String productName, boolean available);
+}
+
+// Concrete observer class
+class NotificationManager implements Observer {
+    private List<User> users;
+
+    NotificationManager() {
+        users = new ArrayList<>();
+    }
+
+    public void registerUser(User user) {
+        users.add(user);
+    }
+
+    public void unregisterUser(User user) {
+        users.remove(user);
+    }
+
+    @Override
+    public void update(String productName, boolean available) {
+        for (User user : users) {
+            user.receiveNotification(productName, available);
+        }
+    }
+}
+
+// User class
+class User {
+    private String name;
+
+    User(String name) {
+        this.name = name;
+    }
+
+    public void receiveNotification(String productName, boolean available) {
+        if (available) {
+            System.out.println("Notification to user " + name + ": " + productName + " is now available. You can purchase it!");
+        } else {
+            System.out.println("Notification to user " + name + ": " + productName + " is currently out of stock.");
+        }
+    }
+}
+
+// Product class
+class Product {
+    private boolean available;
+    private String productName;
+    private NotificationManager notificationManager;
+
+    Product(String productName) {
+        this.productName = productName;
+        this.notificationManager = new NotificationManager();
+    }
+
+    public void registerUser(User user) {
+        notificationManager.registerUser(user);
+    }
+
+    public void unregisterUser(User user) {
+        notificationManager.unregisterUser(user);
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+        notificationManager.update(productName, available);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create product
+        Product product = new Product("Smartphone");
+
+        // Create users
+        User user1 = new User("Alice");
+        User user2 = new User("Bob");
+
+        // Register users with product
+        product.registerUser(user1);
+        product.registerUser(user2);
+
+        // Update product availability
+        product.setAvailable(true);
+
+        // Unregister one user
+        product.unregisterUser(user2);
+
+        // Update product availability again
+        product.setAvailable(false);
+    }
+}
+
+
+```
+
+
+
+## Example - 2
 
 Let's consider a stock market application where users can subscribe to receive notifications when the price of a particular stock changes. We'll implement this using the Observer pattern:
 
