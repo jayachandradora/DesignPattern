@@ -10,10 +10,14 @@ The Proxy Design Pattern provides a surrogate or placeholder for another object 
 
 ### Use Cases:
 
-**Lazy Loading:** Delay creating the subject until it's actually needed. This improves performance for resource-intensive objects.
+**Lazy Loading:** Delay creating the subject until it's actually needed. This improves performance for resource-intensive objects. 
+
 **Access Control:** Enforce access rules based on user permissions. The proxy can verify user credentials before granting access to the subject.
+
 **Caching:** Improve performance by storing frequently accessed data in the proxy.
+
 **Remote Proxies:** Provide a local interface for accessing remote objects located on different servers.
+
 **Security:** Add security checks to the proxy to intercept and potentially modify requests before they reach the subject.
 
 ### How Proxy Design Pattern Works:
