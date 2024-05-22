@@ -1,6 +1,135 @@
 # State Design Pattern
 The main idea of State pattern is to allow the object for changing its behavior without changing its class. Also, by implementing it, the code should remain cleaner without many if/else statements.
 
+The State Design Pattern is a behavioral design pattern that allows an object to alter its behavior when its internal state changes. This pattern is useful when an object's behavior depends on its state, and it must change its behavior at runtime based on that state.
+
+### How State Design Pattern Works:
+
+**Context:** This is the class that contains the state. It delegates the state-specific behavior to the current state object.
+
+**State Interface:** This interface defines a set of methods that encapsulate the behavior associated with a particular state.
+
+**Concrete States:** These are the classes that implement the State interface. Each concrete state provides its own implementation of the behavior associated with that state.
+
+### Example:
+Let's consider an example of a TCP connection that can be in different states such as Established, Closed, and Reset. We'll implement the State Design Pattern to represent these states and transition between them.
+
+```java
+
+// State interface
+interface TCPState {
+    void open();
+    void close();
+    void reset();
+}
+
+// Concrete state classes
+class TCPEstablishedState implements TCPState {
+    @Override
+    public void open() {
+        System.out.println("TCP connection is already open.");
+    }
+
+    @Override
+    public void close() {
+        System.out.println("Closing TCP connection.");
+    }
+
+    @Override
+    public void reset() {
+        System.out.println("Resetting TCP connection.");
+    }
+}
+
+class TCPClosedState implements TCPState {
+    @Override
+    public void open() {
+        System.out.println("Opening TCP connection.");
+    }
+
+    @Override
+    public void close() {
+        System.out.println("TCP connection is already closed.");
+    }
+
+    @Override
+    public void reset() {
+        System.out.println("Cannot reset, TCP connection is closed.");
+    }
+}
+
+class TCPResetState implements TCPState {
+    @Override
+    public void open() {
+        System.out.println("Cannot open, TCP connection is in reset state.");
+    }
+
+    @Override
+    public void close() {
+        System.out.println("Cannot close, TCP connection is in reset state.");
+    }
+
+    @Override
+    public void reset() {
+        System.out.println("Resetting TCP connection.");
+    }
+}
+
+// Context class representing the TCP connection
+class TCPConnection {
+    private TCPState currentState;
+
+    public TCPConnection() {
+        currentState = new TCPClosedState(); // Initial state is Closed
+    }
+
+    public void setState(TCPState state) {
+        currentState = state;
+    }
+
+    public void open() {
+        currentState.open();
+    }
+
+    public void close() {
+        currentState.close();
+    }
+
+    public void reset() {
+        currentState.reset();
+    }
+}
+
+// Client code
+public class StatePatternDemo {
+    public static void main(String[] args) {
+        TCPConnection tcpConnection = new TCPConnection();
+
+        // Establish connection
+        tcpConnection.open();
+
+        // Close connection
+        tcpConnection.close();
+
+        // Reset connection
+        tcpConnection.reset();
+    }
+}
+
+```
+
+### Use Cases:
+
+1.	**Object Behavior Depends on State:** Use the State pattern when an object's behavior changes based on its internal state.
+
+2.	**Avoiding Long, Complex Conditional Statements:** Use the State pattern to replace complex conditional statements with a cleaner and more maintainable design.
+
+3.	**Flexibility and Extensibility:** The State pattern makes it easy to add new states or change existing ones without modifying the context class.
+
+4.	**Finite State Machines (FSMs):** Use the State pattern to model finite state machines where an object can be in one of several states and transitions between states are triggered by events or actions.
+
+5.	**Game Development:** In game development, the State pattern can be used to represent the various states of game characters or entities, such as idle, walking, running, attacking, etc.
+
 ## 1. State.java
 ```ruby
 public interface State {
