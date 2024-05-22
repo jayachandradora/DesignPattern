@@ -1,4 +1,4 @@
-# DesignPattern
+# Prototype Design Pattern
 
 The Prototype Design Pattern is a creational design pattern that focuses on creating objects based on a template or prototype instance. Instead of creating objects from scratch, the pattern allows cloning of existing objects, which serves as a prototype. This approach is particularly useful when the construction of a new instance is more expensive than copying an existing one.
 
