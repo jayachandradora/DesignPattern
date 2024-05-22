@@ -2,6 +2,20 @@
 
 The Proxy Design Pattern provides a surrogate or placeholder for another object to control access to it. This pattern involves creating a new class (the proxy) that acts as an intermediary between the client and the real object. The proxy receives client requests, performs some pre-processing (such as validation, caching, logging, or security checks), and then forwards the request to the real object if appropriate.
 
+###    Components:
+
+**Proxy:** Acts as the intermediary, implementing the same interface as the subject.
+**Subject:** The actual object being accessed.
+**Client:** Uses the proxy to interact with the subject.
+
+### Use Cases:
+
+**Lazy Loading:** Delay creating the subject until it's actually needed. This improves performance for resource-intensive objects.
+**Access Control:** Enforce access rules based on user permissions. The proxy can verify user credentials before granting access to the subject.
+**Caching:** Improve performance by storing frequently accessed data in the proxy.
+**Remote Proxies:** Provide a local interface for accessing remote objects located on different servers.
+**Security:** Add security checks to the proxy to intercept and potentially modify requests before they reach the subject.
+
 ### How Proxy Design Pattern Works:
 
 **Client:** The client interacts with the proxy object, thinking it's the real object.
