@@ -23,7 +23,7 @@ The Observer design pattern is a behavioral pattern that defines a one-to-many d
 3. **Model-View-Controller (MVC) Architecture:**
    - Apply the Observer pattern to implement the Model-View-Controller architecture. The model acts as the subject, and views register as observers to update their presentation when the model's state changes.
 
-## Example - 2
+## Example - 1
 
 We'll extend the previous product availability example to send notifications to a list of registered users when the product availability changes. We'll have a User class representing a user who can be notified
 
@@ -127,10 +127,22 @@ public class Main {
     }
 }
 
-
 ```
+## Details of above example 
 
+In the provided example, we're implementing the Observer Design Pattern without explicitly defining a "Subject" interface. However, we can still identify the components of the pattern:
 
+1.  **Concrete Observer:** NotificationManager class serves as the concrete observer in this example. It implements the Observer interface and is responsible for receiving notifications about changes in the product availability and then forwarding those notifications to the registered users.
+
+2.  **Concrete Subject:** In this implementation, the Product class acts as the concrete subject. It maintains the state of the product (whether it's available or not) and notifies the observer (NotificationManager) about changes in availability. It also provides methods for registering and unregistering users who are interested in receiving notifications.
+
+3.  **Observer Interface:** The Observer interface defines the contract that concrete observers must implement. In this example, it has a single method update(String productName, boolean available) which concrete observers (NotificationManager in this case) implement to receive updates about product availability changes.
+
+###  In summary:
+
+*  Concrete Observer: NotificationManager
+*  Concrete Subject: Product
+*  Observer Interface: Observer
 
 ## Example - 2
 
