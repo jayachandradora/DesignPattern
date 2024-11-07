@@ -228,3 +228,244 @@ public class PostgresConnection implements DataSourceConnection {
 ### Conclusion:
 
 The **Enum Singleton** pattern is an excellent choice for managing multiple database connections, ensuring that only one instance of the connection manager exists across the application while also providing a simple and efficient way to handle connections to PostgreSQL, Cassandra, and MongoDB (or any other databases). By leveraging this approach, you can easily manage different types of databases with centralized connection management and without dealing with the complexity of explicit synchronization or resource leaks.
+
+## Connection Pooling with multiple data sources (e.g., PostgreSQL, Cassandra, MongoDB)
+
+To implement **connection pooling** with multiple data sources (e.g., PostgreSQL, Cassandra, MongoDB) using the **Enum Singleton pattern** and ensure that each data source maintains a pool of **10 connections**, we can take the following approach:
+
+1. **Connection Pooling Concept**: 
+   - For **SQL databases** like PostgreSQL, we will use **HikariCP** or **Apache DBCP** to create and manage a connection pool with a fixed number of connections.
+   - For **NoSQL databases** like **Cassandra** and **MongoDB**, we'll manage multiple connections manually or use the respective libraries that manage connection pooling automatically.
+
+2. **The Plan**:
+   - Create a connection pool for each database type (PostgreSQL, Cassandra, MongoDB).
+   - Use a fixed pool size of **10 connections** for each database.
+   - For each data source, the connection manager will handle obtaining and releasing connections from the pool.
+   
+### 1. **PostgreSQL Connection Pooling (HikariCP)**
+
+We'll configure **HikariCP** to manage a pool of 10 connections for PostgreSQL.
+
+### 2. **Cassandra Connection Pooling (DataStax Java Driver)**
+
+Cassandra's driver (`DataStax` Java driver) manages pooling automatically, but we'll configure it to use a fixed number of connections.
+
+### 3. **MongoDB Connection Pooling**
+
+MongoDB's Java client also supports automatic connection pooling, but we will configure it to use a fixed pool size.
+
+---
+
+### Full Implementation with Connection Pools
+
+#### **1. PostgreSQL Connection Pool (Using HikariCP)**
+
+For PostgreSQL, we will configure HikariCP to create a pool of 10 connections.
+
+```java
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+public class PostgresConnection implements DataSourceConnection {
+    
+    private HikariDataSource dataSource;
+
+    @Override
+    public void connect() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:postgresql://localhost:5432/mydb");
+        config.setUsername("user");
+        config.setPassword("password");
+        config.setMaximumPoolSize(10);  // Set the pool size to 10 connections
+        
+        dataSource = new HikariDataSource(config);
+        System.out.println("PostgreSQL connection pool created with 10 connections.");
+    }
+
+    @Override
+    public void disconnect() {
+        if (dataSource != null) {
+            dataSource.close();
+        }
+        System.out.println("PostgreSQL connection pool closed.");
+    }
+
+    public HikariDataSource getDataSource() {
+        return dataSource;
+    }
+}
+```
+
+#### **2. Cassandra Connection Pool (Using DataStax Java Driver)**
+
+For Cassandra, we can configure the **DataStax Java Driver** to manage a pool of 10 connections.
+
+```java
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Session;
+
+public class CassandraConnection implements DataSourceConnection {
+    
+    private Cluster cluster;
+    private Session session;
+
+    @Override
+    public void connect() {
+        // Configure the Cassandra connection pool with 10 connections
+        cluster = Cluster.builder()
+                         .addContactPoint("localhost")
+                         .withPort(9042)
+                         .withMaxConnectionsPerHost(10)  // Set the pool size to 10 connections per host
+                         .build();
+                         
+        session = cluster.connect();
+        System.out.println("Cassandra connection pool created with 10 connections.");
+    }
+
+    @Override
+    public void disconnect() {
+        if (session != null) {
+            session.close();
+        }
+        if (cluster != null) {
+            cluster.close();
+        }
+        System.out.println("Cassandra connection pool closed.");
+    }
+    
+    public Session getSession() {
+        return session;
+    }
+}
+```
+
+#### **3. MongoDB Connection Pool (Using MongoClient)**
+
+MongoDB's Java driver automatically handles connection pooling. We'll set the **maximum connection pool size** to 10 connections.
+
+```java
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+
+public class MongoDbConnection implements DataSourceConnection {
+    
+    private MongoClient mongoClient;
+
+    @Override
+    public void connect() {
+        // Configure the MongoDB connection pool with 10 connections
+        MongoClientURI uri = new MongoClientURI("mongodb://localhost:27017", 
+            MongoClientOptions.builder()
+                             .connectionsPerHost(10)  // Set the pool size to 10 connections per host
+                             .build());
+                             
+        mongoClient = new MongoClient(uri);
+        System.out.println("MongoDB connection pool created with 10 connections.");
+    }
+
+    @Override
+    public void disconnect() {
+        if (mongoClient != null) {
+            mongoClient.close();
+        }
+        System.out.println("MongoDB connection pool closed.");
+    }
+
+    public MongoClient getMongoClient() {
+        return mongoClient;
+    }
+}
+```
+
+#### **4. MultiDataSourceManager Enum Singleton for Connection Pools**
+
+Now we integrate the three connection classes into the **Enum Singleton** pattern to manage the connection pools for PostgreSQL, Cassandra, and MongoDB.
+
+```java
+public enum MultiDataSourceManager {
+    
+    INSTANCE;
+
+    // Enum holds different database connection managers
+    private final PostgresConnection postgresConnection;
+    private final CassandraConnection cassandraConnection;
+    private final MongoDbConnection mongoConnection;
+
+    // Enum constructor initializes connections for all databases
+    MultiDataSourceManager() {
+        this.postgresConnection = new PostgresConnection();
+        this.cassandraConnection = new CassandraConnection();
+        this.mongoConnection = new MongoDbConnection();
+    }
+
+    // Connect to all databases
+    public void connectAll() {
+        postgresConnection.connect();
+        cassandraConnection.connect();
+        mongoConnection.connect();
+    }
+
+    // Disconnect from all databases
+    public void disconnectAll() {
+        postgresConnection.disconnect();
+        cassandraConnection.disconnect();
+        mongoConnection.disconnect();
+    }
+
+    // Get PostgreSQL connection pool
+    public HikariDataSource getPostgresDataSource() {
+        return postgresConnection.getDataSource();
+    }
+
+    // Get Cassandra session
+    public Session getCassandraSession() {
+        return cassandraConnection.getSession();
+    }
+
+    // Get MongoDB client
+    public MongoClient getMongoClient() {
+        return mongoConnection.getMongoClient();
+    }
+}
+```
+
+#### **5. Usage Example**
+
+Now, we can use the `MultiDataSourceManager` to connect to multiple databases, manage the connection pools, and access them.
+
+```java
+public class MultiDataSourceExample {
+
+    public static void main(String[] args) {
+        // Access the MultiDataSourceManager singleton instance
+        MultiDataSourceManager manager = MultiDataSourceManager.INSTANCE;
+
+        // Connect to all databases (initialize connection pools)
+        manager.connectAll();
+
+        // Access PostgreSQL connection pool (HikariCP)
+        HikariDataSource postgresDataSource = manager.getPostgresDataSource();
+        System.out.println("PostgreSQL Pool Size: " + postgresDataSource.getHikariPoolMXBean().getTotalConnections());
+
+        // Access Cassandra session
+        Session cassandraSession = manager.getCassandraSession();
+        System.out.println("Cassandra Connection: " + cassandraSession);
+
+        // Access MongoDB client
+        MongoClient mongoClient = manager.getMongoClient();
+        System.out.println("MongoDB Client: " + mongoClient);
+
+        // Disconnect from all databases
+        manager.disconnectAll();
+    }
+}
+```
+
+### Key Points:
+- **HikariCP for PostgreSQL**: HikariCP is used to manage a pool of 10 PostgreSQL connections.
+- **Cassandra (DataStax Driver)**: We configure the `Cluster` object to use a maximum of 10 connections per host.
+- **MongoDB**: MongoDB's Java client automatically manages a connection pool with 10 connections per host.
+- **Enum Singleton**: The `MultiDataSourceManager` enum provides a centralized point to manage connections to all databases.
+
+### Conclusion:
+By using the **Enum Singleton pattern**, we ensure that the database connections for PostgreSQL, Cassandra, and MongoDB are managed centrally and efficiently. Each database has its own connection pool (with 10 connections in this case), and we provide easy access to these pools via the `MultiDataSourceManager`. This design is thread-safe, scalable, and ensures proper management of database connections across multiple types of data sources in a Java application.
