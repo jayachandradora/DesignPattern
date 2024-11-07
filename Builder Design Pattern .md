@@ -152,3 +152,144 @@ public class Main {
 ### Conclusion:
 
 The Builder Design Pattern is extremely useful for creating objects with many optional parameters, ensuring that clients can construct complex objects in a clear, flexible, and maintainable way. In real-world scenarios like meal ordering, car manufacturing, or even constructing a document, the Builder pattern makes it easy to configure and create objects without having to deal with cumbersome constructors or setters.
+
+
+## Separate Builder and Meal class implementation.
+
+Here's how you can separate the `Builder` class and the `Meal` class into separate classes, without using the static inner class implementation:
+
+
+### Step 1: **Builder Class (Separated)**
+
+```java
+public class MealBuilder {
+    private String mainDish;
+    private String sideDish;
+    private String drink;
+    private String sauce;
+
+    // Method to set Main Dish
+    public MealBuilder setMainDish(String mainDish) {
+        this.mainDish = mainDish;
+        return this;
+    }
+
+    // Method to set Side Dish
+    public MealBuilder setSideDish(String sideDish) {
+        this.sideDish = sideDish;
+        return this;
+    }
+
+    // Method to set Drink
+    public MealBuilder setDrink(String drink) {
+        this.drink = drink;
+        return this;
+    }
+
+    // Method to set Sauce
+    public MealBuilder setSauce(String sauce) {
+        this.sauce = sauce;
+        return this;
+    }
+
+    // Final step: Build the Meal
+    public Meal build() {
+        return new Meal(mainDish, sideDish, drink, sauce);
+    }
+}
+```
+
+### Step 2: **Meal Class with Constructor**
+
+Update the `Meal` class to have a public constructor, as we're not using the static inner builder class now. The builder will use this constructor to build the meal.
+
+```java
+public class Meal {
+    private String mainDish;
+    private String sideDish;
+    private String drink;
+    private String sauce;
+
+    // Public constructor used by the Builder
+    public Meal(String mainDish, String sideDish, String drink, String sauce) {
+        this.mainDish = mainDish;
+        this.sideDish = sideDish;
+        this.drink = drink;
+        this.sauce = sauce;
+    }
+
+    public String getMainDish() {
+        return mainDish;
+    }
+
+    public String getSideDish() {
+        return sideDish;
+    }
+
+    public String getDrink() {
+        return drink;
+    }
+
+    public String getSauce() {
+        return sauce;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal [mainDish=" + mainDish + ", sideDish=" + sideDish +
+               ", drink=" + drink + ", sauce=" + sauce + "]";
+    }
+}
+```
+
+### Step 3: **Main Class to Demonstrate Usage**
+
+Now, in the `Main` class, we can use the `MealBuilder` class to construct `Meal` objects.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Using the MealBuilder to create a Meal
+        MealBuilder builderA = new MealBuilder();
+        Meal mealA = builderA.setMainDish("Grilled Chicken")
+                             .setSideDish("Fries")
+                             .setDrink("Coke")
+                             .build();
+
+        // Another Meal with a custom sauce
+        MealBuilder builderB = new MealBuilder();
+        Meal mealB = builderB.setMainDish("Veggie Burger")
+                             .setSideDish("Salad")
+                             .setDrink("Water")
+                             .setSauce("Barbecue Sauce")
+                             .build();
+
+        // Print the meals
+        System.out.println(mealA);
+        System.out.println(mealB);
+    }
+}
+```
+
+### Explanation of Changes:
+
+1. **Meal Class**:
+   - This class no longer has the `Builder` class inside it. The `Meal` class now just has a constructor to accept all parameters (i.e., main dish, side dish, drink, and sauce).
+   - The constructor is public so that the `MealBuilder` can access it directly.
+
+2. **MealBuilder Class**:
+   - This class is now completely separate from the `Meal` class.
+   - It has the same functionality as the previous `Builder` but is now a standalone class.
+   - You use the `MealBuilder` class to set optional fields and finally call the `build()` method to create a `Meal` object.
+
+3. **Main Class**:
+   - You create a `MealBuilder` instance, configure it using method chaining, and call `build()` to get the constructed `Meal` object.
+
+### Benefits of this Approach:
+
+1. **Separation of Concerns**: The `Meal` class and the `MealBuilder` class are clearly separated, making it easier to maintain and test.
+2. **Fluent Interface**: The `MealBuilder` still supports a fluent interface, where you can chain method calls for setting different properties.
+3. **More Flexibility**: Now you can choose to use the `MealBuilder` in isolation without directly modifying the `Meal` class. This is helpful when you need to extend functionality in the builder independently of the meal object.
+
+This approach gives you a clean separation between the object you're building (`Meal`) and the builder itself (`MealBuilder`), which enhances the maintainability and scalability of the code.
+
