@@ -348,7 +348,7 @@ For **very large-scale systems** or distributed caches, you may need to explore 
 
 If performance becomes an issue due to growing cache size, you should introduce **eviction policies**, **expiration times**, or **size limits** to prevent excessive memory consumption.
 
-### how many ways we can write singleton in java
+### How many ways we can write singleton in java
 
 In Java, there are several ways to implement the **Singleton pattern**. The Singleton design pattern ensures that a class has only one instance and provides a global point of access to it. Here are the most common ways to write a Singleton in Java:
 
