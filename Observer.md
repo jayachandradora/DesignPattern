@@ -23,6 +23,184 @@ The Observer design pattern is a behavioral pattern that defines a one-to-many d
 3. **Model-View-Controller (MVC) Architecture:**
    - Apply the Observer pattern to implement the Model-View-Controller architecture. The model acts as the subject, and views register as observers to update their presentation when the model's state changes.
 
+## Example - 0
+
+A **Publish-Subscribe (Pub/Sub)** service system is a powerful messaging pattern where publishers send messages (events) and subscribers receive notifications about those messages. The **Observer Design Pattern** fits naturally into this model since it defines a relationship where a subject (publisher) maintains a list of observers (subscribers), and when the subject changes state, all observers are notified.
+
+In this case, the **Pub/Sub** system allows for a one-to-many notification mechanism. Publishers (events) publish messages or notifications, and multiple subscribers (listeners) are notified when new messages are published. 
+
+### Real-World Example: Pub/Sub Service System with Observer Pattern
+
+In a **Pub/Sub system**, a **Publisher** sends events (messages), and various **Subscribers** (e.g., email services, logging systems, analytics) are interested in receiving these events. This setup allows for an asynchronous, loosely coupled system.
+
+Let's design a simple Pub/Sub service system using the **Observer Pattern**.
+
+---
+
+### Java Implementation of Pub/Sub System using Observer Pattern
+
+#### Step 1: Define the `Observer` Interface
+The `Observer` interface will have an `update()` method that is called when a new message/event is published by the publisher.
+
+```java
+// Observer interface
+interface Subscriber {
+    void update(String message);
+}
+```
+
+#### Step 2: Define the `Publisher` (Subject)
+The `Publisher` is the subject in the observer pattern. It holds a list of subscribers and notifies them when a new message/event occurs.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+// Publisher class - Subject
+class Publisher {
+    private List<Subscriber> subscribers;
+    private String topic;
+
+    public Publisher(String topic) {
+        this.topic = topic;
+        this.subscribers = new ArrayList<>();
+    }
+
+    // Register a subscriber
+    public void subscribe(Subscriber subscriber) {
+        subscribers.add(subscriber);
+        System.out.println("New subscriber added to topic: " + topic);
+    }
+
+    // Unsubscribe a subscriber
+    public void unsubscribe(Subscriber subscriber) {
+        subscribers.remove(subscriber);
+        System.out.println("Subscriber removed from topic: " + topic);
+    }
+
+    // Notify all subscribers about a new message
+    public void publish(String message) {
+        System.out.println("Publishing message on topic " + topic + ": " + message);
+        for (Subscriber subscriber : subscribers) {
+            subscriber.update(message);
+        }
+    }
+
+    // Get topic of the publisher
+    public String getTopic() {
+        return topic;
+    }
+}
+```
+
+#### Step 3: Define Concrete Subscribers (Observers)
+Each subscriber (observer) will implement the `Subscriber` interface and handle updates when a new message is published.
+
+```java
+// Concrete Subscriber - EmailService
+class EmailService implements Subscriber {
+    @Override
+    public void update(String message) {
+        System.out.println("EmailService received message: " + message);
+    }
+}
+
+// Concrete Subscriber - LoggingService
+class LoggingService implements Subscriber {
+    @Override
+    public void update(String message) {
+        System.out.println("LoggingService logs message: " + message);
+    }
+}
+
+// Concrete Subscriber - AnalyticsService
+class AnalyticsService implements Subscriber {
+    @Override
+    public void update(String message) {
+        System.out.println("AnalyticsService analyzes message: " + message);
+    }
+}
+```
+
+#### Step 4: Client Code
+The client code sets up the **Publisher** and **Subscribers**, and demonstrates the **Pub/Sub** behavior by publishing messages and observing the notifications.
+
+```java
+public class PubSubSystem {
+    public static void main(String[] args) {
+        // Create Publisher (Topic)
+        Publisher newsPublisher = new Publisher("Tech News");
+
+        // Create Subscribers (Observers)
+        EmailService emailService = new EmailService();
+        LoggingService loggingService = new LoggingService();
+        AnalyticsService analyticsService = new AnalyticsService();
+
+        // Subscribe to Publisher
+        newsPublisher.subscribe(emailService);
+        newsPublisher.subscribe(loggingService);
+        newsPublisher.subscribe(analyticsService);
+
+        // Publish new messages (events)
+        newsPublisher.publish("New Java version released!");
+
+        // Unsubscribe a service
+        newsPublisher.unsubscribe(loggingService);
+
+        // Publish another message after unsubscribing
+        newsPublisher.publish("Python reaches new milestone!");
+    }
+}
+```
+
+### Explanation:
+
+1. **Subscriber Interface (`Subscriber`)**:
+   - This interface defines the `update()` method that each subscriber (listener) must implement. This method is called whenever the publisher sends out a new message.
+
+2. **Publisher (Subject)**:
+   - The `Publisher` class maintains a list of `Subscriber` objects. It provides methods for subscribing (`subscribe()`) and unsubscribing (`unsubscribe()`) to the topic.
+   - The `publish()` method is used to send a message to all subscribers.
+
+3. **Concrete Subscribers**:
+   - `EmailService`, `LoggingService`, and `AnalyticsService` are concrete implementations of the `Subscriber` interface. Each subscriber takes action when it receives a message via the `update()` method.
+
+4. **Client Code**:
+   - The `PubSubSystem` class demonstrates the **Publish-Subscribe** pattern. It sets up a `Publisher` and subscribes multiple `Subscriber` objects to it.
+   - When the publisher calls `publish()`, all the subscribed services (observers) are notified with the message.
+
+### Example Output:
+
+```
+New subscriber added to topic: Tech News
+New subscriber added to topic: Tech News
+New subscriber added to topic: Tech News
+Publishing message on topic Tech News: New Java version released!
+EmailService received message: New Java version released!
+LoggingService logs message: New Java version released!
+AnalyticsService analyzes message: New Java version released!
+
+Subscriber removed from topic: Tech News
+Publishing message on topic Tech News: Python reaches new milestone!
+EmailService received message: Python reaches new milestone!
+AnalyticsService analyzes message: Python reaches new milestone!
+```
+
+### Key Benefits of Using the Observer Pattern in a Pub/Sub System:
+
+1. **Loose Coupling**: The **Publisher** does not need to know about the specific actions each **Subscriber** performs. It just sends messages to all subscribed listeners. Subscribers are independent of the Publisher.
+
+2. **Scalability**: New **Subscribers** can be easily added to the system without modifying the **Publisher** or existing **Subscribers**. You can add more services (like notifications, analytics, etc.) by simply creating new observers and subscribing them to the Publisher.
+
+3. **Asynchronous Communication**: The Pub/Sub pattern enables asynchronous communication between components, where the Publisher and Subscribers do not need to operate in a synchronous manner. They can work independently.
+
+4. **Maintainability**: The code is easier to maintain and extend because the Publisher only manages its state (messages) and not the logic of what happens when an event occurs. Subscribers can evolve independently as long as they adhere to the `Subscriber` interface.
+
+### Conclusion:
+The **Observer Pattern** is a perfect fit for **Pub/Sub systems**, as it allows multiple independent subscribers to receive updates from a publisher without tight coupling. It is especially useful in event-driven systems, messaging services, and applications where different components need to react to changes or events occurring in other parts of the system.
+
+By using this pattern, you can create a scalable, flexible, and maintainable system where publishers and subscribers are loosely coupled, and new observers can be added easily.
+
 ## Example - 1
 
 We'll extend the previous product availability example to send notifications to a list of registered users when the product availability changes. We'll have a User class representing a user who can be notified
