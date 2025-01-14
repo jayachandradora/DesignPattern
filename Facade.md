@@ -28,7 +28,7 @@ The Facade design pattern is a structural pattern that provides a simplified int
 
 ## Example - 0
 
-Another **great example** of the **Facade Pattern** in action is the **Order Processing System** in an **e-commerce application**. E-commerce systems often have many complex subsystems to handle different aspects of an order, such as inventory management, payment processing, shipping, and customer notification. Instead of exposing all of these individual subsystems to the client (e.g., the website or mobile app), we can use a facade to provide a simplified interface for placing and processing orders.
+**Great Example** of the **Facade Pattern** in action is the **Order Processing System** in an **e-commerce application**. E-commerce systems often have many complex subsystems to handle different aspects of an order, such as inventory management, payment processing, shipping, and customer notification. Instead of exposing all of these individual subsystems to the client (e.g., the website or mobile app), we can use a facade to provide a simplified interface for placing and processing orders.
 
 ### Real-World Use Case: E-Commerce Order Processing
 
