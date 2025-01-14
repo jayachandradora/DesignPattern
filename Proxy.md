@@ -30,6 +30,8 @@ The Proxy Design Pattern provides a surrogate or placeholder for another object 
 
 **Real Subject:** The real object that the proxy represents. The proxy forwards requests to the real subject if necessary.
 
+## Google Pay Proxy Pattern
+
 Yes, Google Pay can be considered an example of the **Proxy Pattern**. The Proxy Pattern involves using an intermediary object (the proxy) to control access to another object. In the case of Google Pay, the **GooglePay** service acts as a proxy that facilitates communication between the user's bank account (which holds the actual money) and the payment system that deducts money. The proxy might perform additional tasks such as logging, authentication, or validation before actually executing the payment.
 
 ### Key Components of the Proxy Pattern:
